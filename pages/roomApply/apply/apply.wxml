@@ -1,0 +1,84 @@
+<!--apply.wxml-->
+<form bindsubmit="formSubmit" bindreset="formReset">
+  <view class="cu-form-group margin-top">
+		<view class="title">活动名称</view>
+		<input placeholder="输入活动名称" bindinput="updateValue"  data-name='activity_name' value="{{applyData.activity_name}}" ></input>
+	</view>
+	<view class="cu-form-group margin-top">
+		<view class="title">联系人</view>
+		<input placeholder="输入联系人姓名" bindinput="updateValue"  data-name='applicant_name' value="{{applyData.applicant_name}}"></input>
+	</view> 
+	<view class="cu-form-group">
+		<view class="title">申请人学号</view>
+		<input placeholder="输入申请人学号" bindinput="updateValue"  data-name='applicant_id' value="{{applyData.applicant_id}}"></input>
+	</view>
+	<view class="cu-form-group">
+		<view class="title">联系方式</view>
+		<input placeholder="输入负责人联系方式" bindinput="updateValue"  data-name='applicant_phone' value="{{applyData.applicant_phone}}"></input>
+	</view>
+  <view class="cu-form-group">
+		<view class="title">活动人数</view>
+		<input placeholder="输入参加活动的人数" bindinput="updateValue"  data-name='people_num' value="{{applyData.people_num}}"></input>
+	</view>
+  <view class="cu-form-group margin-top">
+		<textarea maxlength="-1" bindinput="updateValue"  data-name='requests' placeholder="活动需求" value="{{applyData.requests}}"></textarea>
+	</view>
+  
+<!-- //666666666 -->
+	<view class="cu-form-group">
+		<view class="title">教室选择</view>
+		<picker mode="multiSelector" bindchange="MultiChange" bindcolumnchange="MultiColumnChange" value="{{roomIndex}}" range="{{roomArray}}">
+			<view class="picker">
+				{{roomArray[0][roomIndex[0]]}}，{{roomArray[1][roomIndex[1]]}}层，{{roomArray[2][roomIndex[2]]}}
+        <!-- 666 -->
+			</view>
+		</picker>
+	</view>
+
+	<view class="cu-form-group margin-top">
+		<view class="title">活动时间</view>
+		<picker bindchange="timeChange" value="{{timeIndex}}" range="{{timeArray}}">
+			<view class="picker">
+				{{timeArray[timeIndex]}}
+			</view>
+		</picker>
+	</view>
+	<view class="cu-form-group">
+		<view class="title">日期选择</view>
+		<picker mode="date" value="{{applyData.activity_date}}" start="2020-02-01" end="2022-09-01" bindchange="dateChange">
+			<view class="picker">
+				{{applyData["activity_date"]}}
+			</view>
+		</picker>
+	</view>
+  <view class="cu-form-group margin-top">
+		<view class="title">负责教师</view>
+		<input placeholder="请输入负责教师姓名" bindinput="updateValue"  data-name='leader_name' value="{{applyData.leader_name}}"></input>
+	</view> 
+	<view class="cu-bar bg-white margin-top">
+		<view class="action">
+			上传图片 (活动负责老师签字+盖章)
+		</view>
+		<view class="action">
+			{{imgList.length}}/4
+		</view>
+	</view>
+	<view class="cu-form-group">
+		<view class="grid col-4 grid-square flex-sub">
+			<view class="bg-img" wx:for="{{imgList}}" wx:key="{{index}}" bindtap="ViewImage" data-url="{{imgList[index]}}">
+				<image src='{{imgList[index]}}' mode='aspectFill'></image>
+				<view class="cu-tag bg-red" catchtap="DelImg" data-index="{{index}}">
+					<text class="cuIcon-close"></text>
+				</view>
+			</view>
+			<view class="solids" bindtap="chooseImageTap" wx:if="{{imgList.length<4}}">
+				<text class="cuIcon-cameraadd"></text>
+			</view>
+		</view>
+	</view>
+
+  <view class="padding flex flex-direction">
+  <button class="cu-btn bg-blue lg" formType="submit">{{buttonText}}</button>
+  <button class="cu-btn bg-red margin-tb-sm lg" bindtap="cancel" >取消</button>
+  </view>
+</form>

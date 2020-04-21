@@ -1,0 +1,13 @@
+<view class="notice">
+  <view class="cu-timeline" wx:for="{{noticeList}}" bindtap="toDetialNotice" data-index="{{index}}">
+    <view class="noticeTime">{{item.time}}</view>
+    <view class="cu-item">
+      <view class="content">
+        <text></text> {{item.title}}
+      </view>
+    </view>
+  </view>
+  <view class='remind' wx:if="{{state==0}}">
+    <view>没有更多了</view>
+  </view>
+</view>

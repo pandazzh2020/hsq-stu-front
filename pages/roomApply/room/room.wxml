@@ -1,0 +1,175 @@
+<!--room.wxml 查看教室-->
+<!--时间选择-->
+<view class='date-container'>
+  <picker mode="date" value="{{date}}" start="2020-01-01" end="2121-01-01" bindchange="DateChange">
+		<view class="picker">
+			<text space='nbsp'>{{date}}</text>
+		</view>
+	</picker>
+</view>
+
+<!--楼号选择-->
+<view class='building-container'>
+  <view class='building-title'>楼号</view>
+  <scroll-view class="building-list" scroll-x="true" scroll-left="0">
+    <view class="flex">
+      <view 
+        class='floor flex-sub' 
+        wx:for="{{buildings}}" 
+        wx:key="*this" 
+        bindtap="selectBuilding" 
+        data-building="{{item}}"
+        style='color: {{nowBuilding==item?"#1296db":"#000000"}};'
+      >
+        {{item}}
+      </view>
+    </view>
+  </scroll-view>
+</view>
+
+<!--楼层选择-->
+<view class='floor-container'>
+  <view class='floor-title'>楼层</view>
+  <scroll-view class="floor-list flex" scroll-x="true" scroll-left="0">
+    <view class="flex">
+      <view 
+        class='floor flex-sub' 
+        wx:for="{{floors}}" 
+        wx:key="*this" 
+        bindtap="selectFloor" 
+        data-floor="{{item}}"
+        style='color: {{nowFloor==item?"#1296db":"#000000"}};'
+      >
+        {{item}}层
+      </view>
+    </view>
+  </scroll-view>
+</view>
+
+<!--教室使用情况-->
+<view class='room-container'>
+  <view class='room-table'>
+    <!--左侧教室列-->
+    <view class='room-table-header-column'>
+      <view class='room-table-header-cell room-table-header-row'>教室\节</view>
+      <view 
+        class='room-table-header-cell' 
+        wx:for="{{rooms}}" 
+        wx:key="*this" wx:for-item="room" 
+        bindtap="showRoom" data-target="Room" data-room="{{room}}">
+        {{room}}
+      </view>
+    </view>
+    <!--右侧节次列-->
+    <scroll-view class="room-table-body" scroll-x="true" scroll-left="0">
+      <view class="flex">
+        <view 
+          class='room-table-column flex-sub' 
+          wx:for="{{timeTable.length}}" 
+          wx:for-item="time" 
+          wx:key="*this" >
+          <view class='room-table-cell room-table-header-row'>{{time+1}}</view>
+          <view 
+            class='room-table-cell'
+            wx:for="{{rooms}}" 
+            wx:key ="*this"
+            wx:for-item="room"
+            style='background-color: {{classRoom[nowFloor][room]["use"][time]?"#9c9":"#f99"}};'
+            bindtap="{{classRoom[nowFloor][room]['use'][time]?'showUnUsedRoom':'showUsedRoom'}}" 
+            data-target="{{classRoom[nowFloor][room]['use'][time]?'UnUsedRoom':'UsedRoom'}}"
+            data-time="{{time}}"
+            data-room="{{room}}"
+          >
+            {{classRoom[nowFloor][room]["use"][time]?"✔":"✖"}}
+          </view>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+</view>
+
+<view class='tips-container'>
+  <view style='padding: 20rpx;'>
+    <text>时间安排: </text>
+    <text wx:for="{{timeTable}}">
+    {{item[0]}} : {{item[1]}} - {{item[2]}}</text>
+    <text>
+        
+    重要提示: </text>
+    <text style='color: red'>
+    ① 目前该功能仅支持哈尔滨工业大学(威海)</text>
+    <text>
+    ② 红色代表被借用的教室，绿色为可以借用的教室。</text>
+  </view>
+</view>
+
+<view class="cu-modal bottom-modal {{modalName=='Room'?'show':''}}">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white">
+      <view class="action">{{roomMessage.name}}</view>
+      <view class="action text-blue" bindtap="hideModal">关闭</view>
+    </view>
+    <view class="padding-xl">
+      <view class="flex  p-xs margin-bottom-sm mb-sm">
+        <view class="flex-sub margin-xs text-right">管理组织 :</view>
+        <view class="flex-treble margin-xs text-left">{{roomMessage.org}}</view>
+      </view>
+      <view class="flex  p-xs margin-bottom-sm mb-sm">
+        <view class="flex-sub margin-xs text-right">容纳人数 :</view>
+        <view class="flex-treble margin-xs text-left">{{roomMessage.max_num}}</view>
+      </view>
+      <view class="flex  p-xs margin-bottom-sm mb-sm">
+        <view class="flex-sub margin-xs text-right">教室图片 :</view>
+          <image 
+            class="flex-treble margin-xs"
+            src="{{roomMessage.picture}}"></image>
+      </view>
+      <view class="flex  p-xs margin-bottom-sm mb-sm">
+        <view class="flex-sub margin-xs text-right">教室介绍 :</view>
+        <view class="flex-treble margin-xs text-left">{{roomMessage.description}}</view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<view class="cu-modal {{modalName=='UsedRoom'?'show':''}}">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white justify-end">
+      <view class="content">{{nowBuilding}} {{nowFloor}}层 {{nowRoom['room']}}</view>
+      <view class="action" bindtap="hideModal">
+        <text class="cuIcon-close text-red"></text>
+      </view>
+    </view>
+    <view class="padding-xl">
+      <view class="flex  p-xs margin-bottom-sm mb-sm">
+        <view class="flex-sub margin-xs text-right">活动时间 :</view>
+        <view class="flex-treble margin-xs text-left">{{date}} {{timeTable[nowRoom['time']][0]}}</view>
+      </view>
+      <view class="flex  p-xs margin-bottom-sm mb-sm">
+        <view class="flex-sub margin-xs text-right">活动名称 :</view>
+        <view class="flex-treble margin-xs text-left">{{UsedRoom['activity']}}</view>
+      </view>
+      <view class="flex  p-xs margin-bottom-sm mb-sm">
+        <view class="flex-sub margin-xs text-right">使用组织 :</view>
+        <view class="flex-treble margin-xs text-left">{{UsedRoom['organization']}}</view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<view class="cu-modal {{modalName=='UnUsedRoom'?'show':''}}">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white justify-end">
+      <view class="content">{{nowBuilding}} {{nowFloor}}层 {{nowRoom['room']}}</view>
+      <view class="action" bindtap="hideModal">
+        <text class="cuIcon-close text-red"></text>
+      </view>
+    </view>
+    <view class="padding-xl">
+        <view class="flex-sub margin-bottom">{{date}} {{timeTable[nowRoom['time']][0]}}</view>
+          <button  bindtap="toApply" class="cu-btn block bg-blue margin-tb-sm lg">
+            申请教室
+          </button>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,19 @@
+.noticeTime {
+	width: 280rpx;
+	text-align: center;
+	padding: 20rpx 0;
+	font-size: 26rpx;
+	color: #888;
+	display: block;
+}
+.remind{
+  
+	text-align: center;
+	padding: 20rpx 0;
+	font-size: 26rpx;
+	color: #888;
+	display: block;
+}
+.notice{
+
+}

@@ -1,0 +1,19 @@
+<view>
+  <view class="cu-bar bg-white solid-bottom margin-top">
+    <view class="action">
+      <text class="cuIcon-title text-blue"></text>{{noticeDentailList.time}}
+    </view>
+    <view class=" text-sm margin-right">{{noticeDentailList.org}}</view>
+  </view>
+
+  <view class="padding bg-white">
+    <view class="flex-sub text-center">
+      <view class="solid-bottom text-lg padding-sm">
+        <text class="text-black ">{{noticeDentailList.title}}</text>
+      </view>
+    </view>
+    <view class="padding">{{noticeDentailList.content}}
+    </view>
+
+  </view>
+</view>

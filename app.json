@@ -1,0 +1,19 @@
+{
+  "pages": [
+    "pages/roomApply/index/index",
+    "pages/roomApply/room/room",
+    "pages/roomApply/apply/apply",
+    "pages/roomApply/myApply/myApply",
+    "pages/roomApply/myApplyDetails/myApplyDetails",
+    "pages/roomApply/notice/notice",
+    "pages/roomApply/noticeDetails/noticeDetails"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "WeChat",
+    "navigationBarTextStyle": "black"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

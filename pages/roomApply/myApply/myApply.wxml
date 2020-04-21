@@ -1,0 +1,21 @@
+<!--pages/ViewApplication/ViewApplication.wxml-->
+<view class="cu-bar bg-white solid-bottom margin-top">
+  <view class='action'>
+    <text class='cuIcon-title text-blue'></text>我申请的
+  </view>
+</view>
+<view class="cu-list menu-avatar" wx:for="{{ApplicationList}}" bindtap="toDetailsApplication" data-index="{{index}}"  >
+  <view class="cu-item">
+    <view class="cu-avatar radius lg">
+      <text class="cuIcon-homefill text-blue"></text>
+    </view>
+    <view class="content">
+      <view class="text-grey">{{item.building}}{{item.floor}}层{{item.room}}</view>
+      <progress percent="{{item.progress}}"   active='true' stroke-width='10' backgroundColor='#fff' activeColor='orange' style='border-radius:100px;overflow:hidden'></progress>
+    </view>
+    <view class="action" >
+      <view class="text-grey text-xs" >{{item.date}}</view>
+      <view class="text-orange text-sm" >{{item.check_status}}</view>
+    </view>
+  </view>
+</view>

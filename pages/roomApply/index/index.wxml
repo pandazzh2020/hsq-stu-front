@@ -1,0 +1,47 @@
+<!--index.wxml 首页-->
+<view class="bg-white padding-bottom-xl">
+  <!--首页导航-->
+  <view class="cu-list grid col-3">
+    <view class="cu-item" wx:for="{{iconList}}" wx:key >
+      <navigator url="{{item.url}}" redirect>
+        <view class="cuIcon-{{item.icon}} text-{{item.color}}"></view>
+        <text>{{item.name}}</text>
+      </navigator> 
+    </view>
+  </view>
+  <!--公告 标题-->
+  <view class="cu-bar shadow shadow-lg bg-white solid-bottom margin-top">
+    <view class="action">
+      <text class="cuIcon-title text-blue "></text> 最新公告
+    </view>
+    <view class="action">
+      <navigator url="/pages/roomApply/notice/notice" redirect>全部公告>>></navigator>
+    </view>
+  </view>
+  <!--公告 内容-->
+  <view class="flex-sub bg-blue light padding-sm margin-xs margin-top radius">
+    <view class="padding">
+      <view class="margin-bottom-xs text-lg ">{{newNotice.title}}</view>
+      <view class="margin-bottom-xs text-df">{{newNotice.content}}\n</view>
+      <view class="margin-bottom-xs text-df text-right">{{newNotice.time}}\n</view>
+      <view class="text-df text-right">{{newNotice.author}}</view>
+    </view>
+  </view>
+
+  <!--帮助 标题-->
+  <view class="cu-bar shadow shadow-lg bg-white margin-top">
+    <view class="action">
+      <text class="cuIcon-title text-blue"></text>
+      <text>使用帮助</text>
+    </view>
+  </view>
+  <!--帮助 内容-->
+  <view class="margin-top bg-white">
+    <view class="flex-septuple bg-blue light padding-sm margin-xs radius">
+      <text>1.使用帮助\n2.使用帮助使用帮助\n3.使用帮助使用帮助使用帮助\n4.使用帮助使用帮助使用帮助使用帮助\n5.使用帮助使用帮助使用帮助使用帮助使用帮助
+      </text>
+    </view>
+  </view>
+  
+
+</view>

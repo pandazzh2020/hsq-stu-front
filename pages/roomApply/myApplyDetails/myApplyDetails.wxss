@@ -1,0 +1,8 @@
+/* pages/ApplicationDetails/ApplicationDetails.wxss */
+.bt{
+  display: flex;
+  flex-direction: row;
+  margin-top: 20rpx;
+  margin-left: 70rpx;
+  padding-bottom: 50rpx;
+}
